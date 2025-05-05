@@ -7,7 +7,6 @@ class Role(IntEnum):
     USER = 0
     EDITOR = 1
     MODERATOR = 2
-    ADMIN = 3
 
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
