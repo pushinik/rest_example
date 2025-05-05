@@ -1,5 +1,5 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import ForeignKey, SQLModel, Field
 
 class BookAuthor(SQLModel, table=True):
-    book_id: int = Field(foreign_key="book.id", primary_key=True)
-    author_id: int = Field(foreign_key="author.id", primary_key=True)
+    book_id: int = Field(sa_type=ForeignKey("book.id", ondelete="CASCADE"), primary_key=True)
+    author_id: int = Field(sa_type=ForeignKey("author.id", ondelete="CASCADE"), primary_key=True)
