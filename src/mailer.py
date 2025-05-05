@@ -11,10 +11,7 @@ def send_email(to_email, subject, body):
     message["To"] = to_email
     message["Subject"] = subject
     message.attach(MIMEText(body, "plain"))
-    try:
-        server = SMTP(MAIL_HOST, MAIL_PORT)
-        server.starttls()
-        server.login(MAIL_EMAIL, MAIL_PASSWORD)
-        server.sendmail(MAIL_EMAIL, to_email, message.as_string())
-    finally:
-        server.quit()
+    server = SMTP(MAIL_HOST, MAIL_PORT)
+    server.starttls()
+    server.login(MAIL_EMAIL, MAIL_PASSWORD)
+    server.sendmail(MAIL_EMAIL, to_email, message.as_string())

@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from db import create_db_and_tables
 from routers.login_router import login_router
