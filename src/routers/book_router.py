@@ -131,6 +131,10 @@ def get_books(
 
     result = []
     for book in books:
+        publisher = None
+        if book.publisher_id:
+            publisher = session.get(Publisher, book.publisher_id)
+
         authors = session.exec(
             select(Author)
             .join(BookAuthor)
@@ -145,6 +149,7 @@ def get_books(
         book_dict = book.model_dump()
         book_dict["authors"] = [author.model_dump() for author in authors]
         book_dict["comments"] = [comment.model_dump() for comment in comments]
+        book_dict["publisher"] = publisher.model_dump()
         result.append(book_dict)
 
     return result
