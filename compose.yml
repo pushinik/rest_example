@@ -1,0 +1,37 @@
+services:
+  backend:
+    build: .
+    restart: unless-stopped
+    # env_file:
+    #   - .env
+    networks:
+      - my-network
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_HOST: postgres
+    ports:
+      - '127.0.0.1:8000:8000'
+  postgres:
+    image: postgres:17.4-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - my-network
+    ports:
+      - '127.0.0.1:5432:5432'
+volumes:
+  pg_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./.docker/pg_data
+networks:
+  my-network:
+    driver: bridge
